@@ -9,7 +9,7 @@
 import XCTest
 @testable import FlickerImages
 
-class FlickerImagesTests: XCTestCase, JSONDownloadDelegate, ImageDownloadDelegate {
+class FlickerImagesTests: XCTestCase, JSONDownloadDelegate, ImageDownloadDelegate, ImageIndexDelegate {
     
     var jsonOp: JSONNetworkOperation? = nil
     var jsonDict: Dictionary<String, Any>? = nil
@@ -45,7 +45,7 @@ class FlickerImagesTests: XCTestCase, JSONDownloadDelegate, ImageDownloadDelegat
         }
         XCTAssert(self.flickrImage?.image != nil && (self.flickrImage?.image?.size.width)! > CGFloat(0) && (self.flickrImage?.image?.size.height)! > CGFloat(0))
         
-        ImagesIndex.sharedInstance.searchForKey(searchKey: "kitten")
+        ImagesIndex.sharedInstance.searchForKey(searchKey: "kitten", delegate: self)
         while ImagesIndex.sharedInstance.imagesDict.count <= 0 {
             
         }
@@ -55,15 +55,18 @@ class FlickerImagesTests: XCTestCase, JSONDownloadDelegate, ImageDownloadDelegat
     }
     
     func JSONDictionaryDownloaded(jsonDict: Dictionary<String, Any>) {
-        //print(dump(jsonDict))
         self.jsonDict = jsonDict
         
     }
     
     func imageDownloaded(flickrImage: FlickrImage) {
-        //print("\(image.size.width) x \(image.size.height)")
         self.flickrImage = flickrImage
     }
+    
+    func imageIndexDownloaded() {
+        <#code#>
+    }
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -13,21 +13,32 @@ class FlickrImageCell: UICollectionViewCell, ImageDownloadDelegate {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     
-    var flickrImage: FlickrImage? = nil
-    var index: Int? = nil
+    private var flickrImage: FlickrImage? = nil
+    private var lastImageKey: ImageKey? = nil
+    
+    var LastImageKey: ImageKey? {
+        set(newValue) {
+            self.lastImageKey = newValue
+        }
+        get {
+            return lastImageKey
+        }
+    }
     
     func resetCell() {
         self.imageView.image = nil
         self.activityIndicatorView.isHidden = false
         self.activityIndicatorView.startAnimating()
         self.bringSubview(toFront: self.activityIndicatorView)
+        ImagesStash.sharedInstance.ignoreDelegateForImage(flickrImage: self.flickrImage)
         self.flickrImage = nil
-        self.index = nil
+        self.lastImageKey = nil
     }
     
     func setImage(flickrImage: FlickrImage) {
-        if let image = flickrImage.image { 
+        if let image = flickrImage.Image { 
             self.imageView.image = image
+            self.lastImageKey = flickrImage.imageKey
             self.bringSubview(toFront: self.imageView)
             self.activityIndicatorView.stopAnimating()
             self.activityIndicatorView.isHidden = true
@@ -35,9 +46,11 @@ class FlickrImageCell: UICollectionViewCell, ImageDownloadDelegate {
     }
     
     // MARK: -- ImageDownloadDelegate methods --
-    func imageDownloaded(flickrImage: FlickrImage) {
+    internal func imageDownloaded(flickrImage: FlickrImage) {
         DispatchQueue.main.async {
-            self.setImage(flickrImage: flickrImage)
+            if flickrImage.imageKey == self.lastImageKey {
+                self.setImage(flickrImage: flickrImage)
+            }
         }
     }
 }

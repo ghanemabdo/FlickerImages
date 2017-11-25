@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F26567891FC7981600D1218E /* flickrLaunchScreen.gif in Resources */ = {isa = PBXBuildFile; fileRef = F26567881FC7981600D1218E /* flickrLaunchScreen.gif */; };
+		F265678B1FC8656C00D1218E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F265678A1FC8656C00D1218E /* Configurations.swift */; };
+		F265678D1FC8672800D1218E /* Uber-logo-logotype.png in Resources */ = {isa = PBXBuildFile; fileRef = F265678C1FC8672800D1218E /* Uber-logo-logotype.png */; };
 		F26EB4A71FC1C95B0083480E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4A61FC1C95B0083480E /* AppDelegate.swift */; };
 		F26EB4A91FC1C95B0083480E /* FlickrImagesGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4A81FC1C95B0083480E /* FlickrImagesGridViewController.swift */; };
 		F26EB4AC1FC1C95B0083480E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26EB4AA1FC1C95B0083480E /* Main.storyboard */; };
@@ -21,7 +24,7 @@
 		F26EB4E01FC426E60083480E /* JSONDonwloadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4DF1FC426E60083480E /* JSONDonwloadDelegate.swift */; };
 		F26EB4E41FC427940083480E /* JSONNetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E31FC427940083480E /* JSONNetworkOperation.swift */; };
 		F26EB4E61FC43CE50083480E /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E51FC43CE50083480E /* FlickrImage.swift */; };
-		F26EB4E81FC56F570083480E /* ImageStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E71FC56F570083480E /* ImageStash.swift */; };
+		F26EB4E81FC56F570083480E /* ImagesStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E71FC56F570083480E /* ImagesStash.swift */; };
 		F26EB4EA1FC579E00083480E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E91FC579E00083480E /* Utils.swift */; };
 		F26EB4ED1FC59B790083480E /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4EC1FC59B790083480E /* Queue.swift */; };
 		F26EB4EF1FC5A9C60083480E /* ImagesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */; };
@@ -47,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F26567881FC7981600D1218E /* flickrLaunchScreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickrLaunchScreen.gif; sourceTree = "<group>"; };
+		F265678A1FC8656C00D1218E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
+		F265678C1FC8672800D1218E /* Uber-logo-logotype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Uber-logo-logotype.png"; sourceTree = "<group>"; };
 		F26EB4A31FC1C95B0083480E /* FlickerImages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickerImages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26EB4A61FC1C95B0083480E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26EB4A81FC1C95B0083480E /* FlickrImagesGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImagesGridViewController.swift; sourceTree = "<group>"; };
@@ -67,7 +73,7 @@
 		F26EB4DF1FC426E60083480E /* JSONDonwloadDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDonwloadDelegate.swift; sourceTree = "<group>"; };
 		F26EB4E31FC427940083480E /* JSONNetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONNetworkOperation.swift; sourceTree = "<group>"; };
 		F26EB4E51FC43CE50083480E /* FlickrImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImage.swift; sourceTree = "<group>"; };
-		F26EB4E71FC56F570083480E /* ImageStash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStash.swift; sourceTree = "<group>"; };
+		F26EB4E71FC56F570083480E /* ImagesStash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesStash.swift; sourceTree = "<group>"; };
 		F26EB4E91FC579E00083480E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F26EB4EC1FC59B790083480E /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesIndex.swift; sourceTree = "<group>"; };
@@ -100,6 +106,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F26567851FC7972100D1218E /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F265678C1FC8672800D1218E /* Uber-logo-logotype.png */,
+				F26567881FC7981600D1218E /* flickrLaunchScreen.gif */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		F26EB49A1FC1C95B0083480E = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +138,7 @@
 		F26EB4A51FC1C95B0083480E /* FlickerImages */ = {
 			isa = PBXGroup;
 			children = (
+				F26567851FC7972100D1218E /* resources */,
 				F26EB4EB1FC59B5F0083480E /* Utilities */,
 				F26EB4D51FC40B620083480E /* Controllers */,
 				F26EB4D41FC40B4D0083480E /* Model */,
@@ -131,6 +147,7 @@
 				F26EB4AD1FC1C95B0083480E /* Assets.xcassets */,
 				F26EB4AF1FC1C95B0083480E /* LaunchScreen.storyboard */,
 				F26EB4B21FC1C95B0083480E /* Info.plist */,
+				F265678A1FC8656C00D1218E /* Configurations.swift */,
 			);
 			path = FlickerImages;
 			sourceTree = "<group>";
@@ -161,7 +178,7 @@
 				F26EB4DA1FC41AD70083480E /* ImageNetworkOperation.swift */,
 				F26EB4E31FC427940083480E /* JSONNetworkOperation.swift */,
 				F26EB4E51FC43CE50083480E /* FlickrImage.swift */,
-				F26EB4E71FC56F570083480E /* ImageStash.swift */,
+				F26EB4E71FC56F570083480E /* ImagesStash.swift */,
 				F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */,
 			);
 			path = Model;
@@ -303,9 +320,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F26567891FC7981600D1218E /* flickrLaunchScreen.gif in Resources */,
 				F26EB4B11FC1C95B0083480E /* LaunchScreen.storyboard in Resources */,
 				F26EB4AE1FC1C95B0083480E /* Assets.xcassets in Resources */,
 				F26EB4AC1FC1C95B0083480E /* Main.storyboard in Resources */,
+				F265678D1FC8672800D1218E /* Uber-logo-logotype.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,7 +351,7 @@
 			files = (
 				F26EB4DB1FC41AD70083480E /* ImageNetworkOperation.swift in Sources */,
 				F26EB4EF1FC5A9C60083480E /* ImagesIndex.swift in Sources */,
-				F26EB4E81FC56F570083480E /* ImageStash.swift in Sources */,
+				F26EB4E81FC56F570083480E /* ImagesStash.swift in Sources */,
 				F26EB4A91FC1C95B0083480E /* FlickrImagesGridViewController.swift in Sources */,
 				F26EB4E61FC43CE50083480E /* FlickrImage.swift in Sources */,
 				F26EB4E41FC427940083480E /* JSONNetworkOperation.swift in Sources */,
@@ -340,6 +359,7 @@
 				F26EB4DE1FC4204E0083480E /* ImageDownloadDelegate.swift in Sources */,
 				F26EB4D71FC40BD30083480E /* NetworkOperation.swift in Sources */,
 				F26EB4ED1FC59B790083480E /* Queue.swift in Sources */,
+				F265678B1FC8656C00D1218E /* Configurations.swift in Sources */,
 				F26EB4EA1FC579E00083480E /* Utils.swift in Sources */,
 				F26EB4A71FC1C95B0083480E /* AppDelegate.swift in Sources */,
 				F26EB4D91FC40FE80083480E /* NetworkOperationDelegate.swift in Sources */,
@@ -510,6 +530,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 88776GQ4ZQ;
 				INFOPLIST_FILE = FlickerImages/Info.plist;
@@ -525,6 +546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 88776GQ4ZQ;
 				INFOPLIST_FILE = FlickerImages/Info.plist;
