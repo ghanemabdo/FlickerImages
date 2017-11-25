@@ -2,7 +2,7 @@
 iOS app to load and display Flicker images using Flickr Search API
 
 ## Application Main Modules
-==========================
+---
 
 ### Model
 
@@ -28,7 +28,7 @@ A single view that contains a UICollectionView to display the retrieved images i
 The most important functionalities of the main modules are two XCTTest classes. The first one tests the network interactions and the second one tests the main image storage, caching and retrieval. UI testing is not done due to time constraints
 
 ## Potential improvements
-==========================
+---
 
 * Image disk storage cleanup. Currently, all the images stored to disk are never removes. There should be a periodic cleanup procedure to remove images stored before some time parameter such as a week or a month ago
 * Better UI design. The current interface is basic just to show the working functions of the app. For example, pressing, or press and hold, an image displays it in actual size
