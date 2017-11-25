@@ -43,6 +43,24 @@ class ImagesIndex: JSONDownloadDelegate {
         return self.perpage
     }
     
+    func removeAll() {
+        self.imagesList.removeAll()
+        self.imagesDict.removeAll()
+        perpage = 0
+        totalPages = 0
+        lastPage = 0
+        totalPhotos = "1"
+        searchDelegate = nil
+    }
+    
+    func removeImage(flickrImage: FlickrImage) {
+        if let key = flickrImage.imageKey {
+            self.imagesDict.removeValue(forKey: key)
+            self.imagesList = self.imagesList.filter() { $0 != key }
+            ImagesStash.sharedInstance.removeImage(flickrImage: flickrImage)
+        }
+    }
+    
     func searchForKey(searchKey: SearchKey, delegate:ImageIndexDelegate) {
         if searchKey == self.searchKey || searchKey.count == 0 {
             return
@@ -133,9 +151,15 @@ class ImagesIndex: JSONDownloadDelegate {
     
     // MARK: -- JSONDownloadDelegate --
     
-    internal func JSONDictionaryDownloaded(jsonDict: Dictionary<String, Any>) {
+    internal func JSONDictionaryDownloaded(jsonDict: Dictionary<String, Any>?) {
         self.isPageDownloadInProgress = false
-        extractInfoFromDict(jsonDict: jsonDict as Dictionary<String, AnyObject>)
+        if let dict = jsonDict as Dictionary<String, AnyObject>? {
+            extractInfoFromDict(jsonDict: dict)
+        }
         searchDelegate?.imageIndexDownloaded()
+    }
+    
+    deinit {
+        self.removeAll()
     }
 }

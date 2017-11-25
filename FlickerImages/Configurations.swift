@@ -9,5 +9,6 @@
 import Foundation
 
 struct Configurations {
-    static let diskCachEnabled = true 
+    static let diskCachEnabled = true
+    static let imagesDirectoryName = "images"
 }

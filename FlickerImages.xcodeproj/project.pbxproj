@@ -10,12 +10,13 @@
 		F26567891FC7981600D1218E /* flickrLaunchScreen.gif in Resources */ = {isa = PBXBuildFile; fileRef = F26567881FC7981600D1218E /* flickrLaunchScreen.gif */; };
 		F265678B1FC8656C00D1218E /* Configurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F265678A1FC8656C00D1218E /* Configurations.swift */; };
 		F265678D1FC8672800D1218E /* Uber-logo-logotype.png in Resources */ = {isa = PBXBuildFile; fileRef = F265678C1FC8672800D1218E /* Uber-logo-logotype.png */; };
+		F265678F1FC91D1900D1218E /* FlickerImagesStoreRetrieveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F265678E1FC91D1900D1218E /* FlickerImagesStoreRetrieveTests.swift */; };
 		F26EB4A71FC1C95B0083480E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4A61FC1C95B0083480E /* AppDelegate.swift */; };
 		F26EB4A91FC1C95B0083480E /* FlickrImagesGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4A81FC1C95B0083480E /* FlickrImagesGridViewController.swift */; };
 		F26EB4AC1FC1C95B0083480E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26EB4AA1FC1C95B0083480E /* Main.storyboard */; };
 		F26EB4AE1FC1C95B0083480E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F26EB4AD1FC1C95B0083480E /* Assets.xcassets */; };
 		F26EB4B11FC1C95B0083480E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26EB4AF1FC1C95B0083480E /* LaunchScreen.storyboard */; };
-		F26EB4BC1FC1C95B0083480E /* FlickerImagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4BB1FC1C95B0083480E /* FlickerImagesTests.swift */; };
+		F26EB4BC1FC1C95B0083480E /* FlickerImagesNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4BB1FC1C95B0083480E /* FlickerImagesNetworkTests.swift */; };
 		F26EB4C71FC1C95B0083480E /* FlickerImagesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4C61FC1C95B0083480E /* FlickerImagesUITests.swift */; };
 		F26EB4D71FC40BD30083480E /* NetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4D61FC40BD30083480E /* NetworkOperation.swift */; };
 		F26EB4D91FC40FE80083480E /* NetworkOperationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4D81FC40FE80083480E /* NetworkOperationDelegate.swift */; };
@@ -26,7 +27,6 @@
 		F26EB4E61FC43CE50083480E /* FlickrImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E51FC43CE50083480E /* FlickrImage.swift */; };
 		F26EB4E81FC56F570083480E /* ImagesStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E71FC56F570083480E /* ImagesStash.swift */; };
 		F26EB4EA1FC579E00083480E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4E91FC579E00083480E /* Utils.swift */; };
-		F26EB4ED1FC59B790083480E /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4EC1FC59B790083480E /* Queue.swift */; };
 		F26EB4EF1FC5A9C60083480E /* ImagesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */; };
 		F26EB4F11FC6341F0083480E /* FlickrImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4F01FC6341F0083480E /* FlickrImageCell.swift */; };
 		F26EB4F31FC63AFD0083480E /* ImageIndexDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4F21FC63AFD0083480E /* ImageIndexDelegate.swift */; };
@@ -53,6 +53,7 @@
 		F26567881FC7981600D1218E /* flickrLaunchScreen.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flickrLaunchScreen.gif; sourceTree = "<group>"; };
 		F265678A1FC8656C00D1218E /* Configurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configurations.swift; sourceTree = "<group>"; };
 		F265678C1FC8672800D1218E /* Uber-logo-logotype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Uber-logo-logotype.png"; sourceTree = "<group>"; };
+		F265678E1FC91D1900D1218E /* FlickerImagesStoreRetrieveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagesStoreRetrieveTests.swift; sourceTree = "<group>"; };
 		F26EB4A31FC1C95B0083480E /* FlickerImages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickerImages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26EB4A61FC1C95B0083480E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F26EB4A81FC1C95B0083480E /* FlickrImagesGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImagesGridViewController.swift; sourceTree = "<group>"; };
@@ -61,7 +62,7 @@
 		F26EB4B01FC1C95B0083480E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F26EB4B21FC1C95B0083480E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F26EB4B71FC1C95B0083480E /* FlickerImagesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickerImagesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F26EB4BB1FC1C95B0083480E /* FlickerImagesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagesTests.swift; sourceTree = "<group>"; };
+		F26EB4BB1FC1C95B0083480E /* FlickerImagesNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagesNetworkTests.swift; sourceTree = "<group>"; };
 		F26EB4BD1FC1C95B0083480E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F26EB4C21FC1C95B0083480E /* FlickerImagesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickerImagesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F26EB4C61FC1C95B0083480E /* FlickerImagesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerImagesUITests.swift; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		F26EB4E51FC43CE50083480E /* FlickrImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImage.swift; sourceTree = "<group>"; };
 		F26EB4E71FC56F570083480E /* ImagesStash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesStash.swift; sourceTree = "<group>"; };
 		F26EB4E91FC579E00083480E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		F26EB4EC1FC59B790083480E /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesIndex.swift; sourceTree = "<group>"; };
 		F26EB4F01FC6341F0083480E /* FlickrImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImageCell.swift; sourceTree = "<group>"; };
 		F26EB4F21FC63AFD0083480E /* ImageIndexDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIndexDelegate.swift; sourceTree = "<group>"; };
@@ -155,7 +155,8 @@
 		F26EB4BA1FC1C95B0083480E /* FlickerImagesTests */ = {
 			isa = PBXGroup;
 			children = (
-				F26EB4BB1FC1C95B0083480E /* FlickerImagesTests.swift */,
+				F265678E1FC91D1900D1218E /* FlickerImagesStoreRetrieveTests.swift */,
+				F26EB4BB1FC1C95B0083480E /* FlickerImagesNetworkTests.swift */,
 				F26EB4BD1FC1C95B0083480E /* Info.plist */,
 			);
 			path = FlickerImagesTests;
@@ -208,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				F26EB4E91FC579E00083480E /* Utils.swift */,
-				F26EB4EC1FC59B790083480E /* Queue.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -358,7 +358,6 @@
 				F26EB4F31FC63AFD0083480E /* ImageIndexDelegate.swift in Sources */,
 				F26EB4DE1FC4204E0083480E /* ImageDownloadDelegate.swift in Sources */,
 				F26EB4D71FC40BD30083480E /* NetworkOperation.swift in Sources */,
-				F26EB4ED1FC59B790083480E /* Queue.swift in Sources */,
 				F265678B1FC8656C00D1218E /* Configurations.swift in Sources */,
 				F26EB4EA1FC579E00083480E /* Utils.swift in Sources */,
 				F26EB4A71FC1C95B0083480E /* AppDelegate.swift in Sources */,
@@ -372,7 +371,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F26EB4BC1FC1C95B0083480E /* FlickerImagesTests.swift in Sources */,
+				F265678F1FC91D1900D1218E /* FlickerImagesStoreRetrieveTests.swift in Sources */,
+				F26EB4BC1FC1C95B0083480E /* FlickerImagesNetworkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +564,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 88776GQ4ZQ;
 				INFOPLIST_FILE = FlickerImagesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghanemabdo.FlickerImagesTests;
@@ -580,6 +581,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 88776GQ4ZQ;
 				INFOPLIST_FILE = FlickerImagesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghanemabdo.FlickerImagesTests;

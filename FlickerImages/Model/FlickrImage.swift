@@ -101,4 +101,8 @@ class FlickrImage: ImageDownloadDelegate {
     internal func imageDownloaded(flickrImage: FlickrImage) {
         delegate?.imageDownloaded(flickrImage: flickrImage)
     }
+    
+    deinit {
+        self.image = nil
+    }
 }

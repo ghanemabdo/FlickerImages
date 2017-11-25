@@ -45,11 +45,14 @@ class JSONNetworkOperation: NetworkOperationDelegate {
             do {
                 if let dict = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
                     jsonDownloadDelegate?.JSONDictionaryDownloaded(jsonDict: dict)
+                    return
                 }
             } catch {
                 
             }
         }
+        
+        jsonDownloadDelegate?.JSONDictionaryDownloaded(jsonDict: nil)
     }
     
 }
