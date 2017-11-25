@@ -11,7 +11,7 @@ import UIKit
 
 class ImagesStash: ImageDownloadDelegate {
     
-    private let maxImagesAllowedInMemory = 200
+    private var maxImagesAllowedInMemory = 200
     static let sharedInstance = ImagesStash()
     private var imagesDict = Dictionary<ImageKey, FlickrImage>()
     private var delegatesDict = Dictionary<ImageKey, ImageDownloadDelegate>()
@@ -19,6 +19,15 @@ class ImagesStash: ImageDownloadDelegate {
     
     var count: Int {
         return imagesQueue.count
+    }
+    
+    var MaxImagesAllowedInMemory: Int {
+        set(newValue) {
+            self.maxImagesAllowedInMemory = newValue
+        }
+        get {
+            return maxImagesAllowedInMemory
+        }
     }
     
     init() {
@@ -29,6 +38,18 @@ class ImagesStash: ImageDownloadDelegate {
         imagesDict.removeAll()
         delegatesDict.removeAll()
         imagesQueue.removeAll()
+    }
+    
+    func removeImage(flickrImage: FlickrImage, andFromDisk: Bool = false) {
+        if let key = flickrImage.imageKey {
+            imagesDict.removeValue(forKey: key)
+            delegatesDict.removeValue(forKey: key)
+            imagesQueue = imagesQueue.filter() { $0 != key }
+            
+            if andFromDisk {
+                self.removeImageFromDisk(flickrImage: flickrImage)
+            }
+        }
     }
     
     func ignoreDelegateForImage(flickrImage: FlickrImage?) {
@@ -105,7 +126,7 @@ class ImagesStash: ImageDownloadDelegate {
         if Configurations.diskCachEnabled {
             if let img_key = flickrImage.imageKey, let img = flickrImage.Image {
                 if let data = UIImageJPEGRepresentation(img, 0.9) {
-                    let filename = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
+                    let filename = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent(Configurations.imagesDirectoryName).appendingPathComponent("\(img_key).jpg")
                     try? data.write(to: filename)
                     imagesDict.removeValue(forKey: img_key)
                 }
@@ -118,7 +139,7 @@ class ImagesStash: ImageDownloadDelegate {
         // delivered to a delegate for displaying
         if Configurations.diskCachEnabled {
             if let img_key = flickrImage.imageKey {
-                let imgURL = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
+                let imgURL = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent(Configurations.imagesDirectoryName).appendingPathComponent("\(img_key).jpg")
                 do {
                     let imageData = try Data(contentsOf: imgURL)
                     flickrImage.Image = UIImage(data: imageData)
@@ -130,6 +151,21 @@ class ImagesStash: ImageDownloadDelegate {
         }
         
         return nil
+    }
+    
+    private func removeImageFromDisk(flickrImage: FlickrImage) {
+        if let key = flickrImage.imageKey {
+            let fileManager = FileManager.default
+            let docDir = Utils.sharedInstance.getDocumentsDirectory()
+            let imagePath = docDir.appendingPathComponent(Configurations.imagesDirectoryName).appendingPathComponent("\(key).jpg")
+            
+            do {
+                try fileManager.removeItem(atPath: imagePath.path)
+            }
+            catch {
+                
+            }
+        }
     }
     
     private func createImagesDirectoryOnDisk() {
@@ -146,5 +182,9 @@ class ImagesStash: ImageDownloadDelegate {
         } catch {
             
         } 
+    }
+    
+    deinit {
+        self.removeAll()
     }
 }

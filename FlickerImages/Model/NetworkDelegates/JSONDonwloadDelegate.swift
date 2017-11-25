@@ -10,5 +10,5 @@ import Foundation
 
 protocol JSONDownloadDelegate {
     
-    func JSONDictionaryDownloaded(jsonDict: Dictionary<String,Any>)
+    func JSONDictionaryDownloaded(jsonDict: Dictionary<String,Any>?)
 }
