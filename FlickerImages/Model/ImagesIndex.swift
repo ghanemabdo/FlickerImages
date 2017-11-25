@@ -13,14 +13,15 @@ typealias SearchKey = String
 class ImagesIndex: JSONDownloadDelegate {
     
     static let sharedInstance = ImagesIndex()
-    var searchDelegate: ImageIndexDelegate? = nil
-    var searchKey: SearchKey = ""
-    var lastPage = 0
-    var totalPages = 0
-    var totalPhotos = ""
-    var perpage = 0
-    var imagesDict = Dictionary<ImageKey, FlickrImage>()
-    var imagesList = [ImageKey]()
+    private var searchDelegate: ImageIndexDelegate? = nil
+    private var searchKey: SearchKey = ""
+    private var lastPage = 0
+    private var totalPages = 0
+    private var totalPhotos = "1"
+    private var perpage = 0
+    private var imagesDict = Dictionary<ImageKey, FlickrImage>()
+    private var imagesList = [ImageKey]()
+    private var isPageDownloadInProgress = false
     
     var TotalPhotos: Int {
         guard let ttl = Int(totalPhotos) else {
@@ -28,6 +29,18 @@ class ImagesIndex: JSONDownloadDelegate {
         }
         
         return ttl
+    }
+    
+    var count: Int {
+        return imagesList.count
+    }
+    
+    var TotalPages: Int {
+        return self.totalPages
+    }
+    
+    var PerPage: Int {
+        return self.perpage
     }
     
     func searchForKey(searchKey: SearchKey, delegate:ImageIndexDelegate) {
@@ -38,14 +51,18 @@ class ImagesIndex: JSONDownloadDelegate {
         self.searchDelegate = delegate
         imagesDict.removeAll()
         imagesList.removeAll()
+        ImagesStash.sharedInstance.removeAllAndSaveToDisk()
         lastPage = 0
         self.searchKey = searchKey
         downloadNextPage()
     }
     
     func downloadNextPage() {
-        lastPage += 1
-        downloadPage(page: lastPage)
+        if self.imagesList.count < self.TotalPhotos && self.isPageDownloadInProgress == false {
+            lastPage += 1
+            self.isPageDownloadInProgress = true
+            downloadPage(page: lastPage)
+        }
     }
     
     func downloadPage(page: Int) {
@@ -53,7 +70,26 @@ class ImagesIndex: JSONDownloadDelegate {
         jsonOp.start()
     }
     
-    func extractInfoFromDict(jsonDict: Dictionary<String, AnyObject>) {
+    func getImageAtIndex(index: Int, delegate: ImageDownloadDelegate) -> FlickrImage? {
+        if index < self.TotalPhotos {
+            if index < self.imagesList.count {
+                let imageKey = self.imagesList[index]
+                if let image = self.imagesDict[imageKey] {
+                    return ImagesStash.sharedInstance.getImageDownloadIfNotExistLocally(flickrImage: image, delegate: delegate)
+                }
+            } else {
+                self.downloadNextPage()
+            }
+        }
+        
+        return nil
+    }
+    
+    func getImageKeyAtIndex(index: Int) -> ImageKey? {
+        return imagesList[index]
+    }
+    
+    private func extractInfoFromDict(jsonDict: Dictionary<String, AnyObject>) {
         if let photos = jsonDict["photos"] as? Dictionary<String,AnyObject> {
             if let ttlpg = photos["pages"] as? Int {
                 self.totalPages = ttlpg
@@ -69,7 +105,7 @@ class ImagesIndex: JSONDownloadDelegate {
                     if let img = createFlickrImageFromDict(dict: objDict) {
                         if let imgKey = img.imageKey {
                             imagesDict[imgKey] = img
-                            imagesList.insert(imgKey, at: 0)
+                            imagesList.append(imgKey)
                         }
                     }
                 }
@@ -77,7 +113,7 @@ class ImagesIndex: JSONDownloadDelegate {
         }
     }
     
-    func createFlickrImageFromDict(dict: Dictionary<String, Any>) -> FlickrImage? {
+    private func createFlickrImageFromDict(dict: Dictionary<String, Any>) -> FlickrImage? {
         if let id = dict["id"] as? String,
             let owner = dict["owner"] as? String,
             let secret = dict["secret"] as? String,
@@ -95,24 +131,10 @@ class ImagesIndex: JSONDownloadDelegate {
         return nil
     }
     
-    func getImageAtIndex(index: Int, delegate: ImageDownloadDelegate) -> FlickrImage? {
-        if index < self.TotalPhotos {
-            if index < self.imagesList.count {
-                let imageKey = self.imagesList[index]
-                if let image = self.imagesDict[imageKey] {
-                    return ImageStash.sharedInstance.getImageDownloadIfNotExistLocally(flickrImage: image, delegate: delegate)
-                }
-            } else {
-                self.downloadNextPage()
-            }
-        }
-        
-        return nil
-    }
-    
     // MARK: -- JSONDownloadDelegate --
     
-    func JSONDictionaryDownloaded(jsonDict: Dictionary<String, Any>) {
+    internal func JSONDictionaryDownloaded(jsonDict: Dictionary<String, Any>) {
+        self.isPageDownloadInProgress = false
         extractInfoFromDict(jsonDict: jsonDict as Dictionary<String, AnyObject>)
         searchDelegate?.imageIndexDownloaded()
     }

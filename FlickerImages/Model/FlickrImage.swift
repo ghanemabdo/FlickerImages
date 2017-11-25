@@ -13,18 +13,18 @@ typealias ImageKey = String
 
 class FlickrImage: ImageDownloadDelegate {
     
-    var image: UIImage?
-    let id: String
-    let owner: String
-    let server: String
-    let secret: String
-    let farm: Int
-    let title: String
-    let isPublic: Int
-    let isFriend: Int
-    let isFamily: Int
-    var isInitialized: Bool = false
-    var delegate: ImageDownloadDelegate? = nil
+    private var image: UIImage?
+    private let id: String
+    private let owner: String
+    private let server: String
+    private let secret: String
+    private let farm: Int
+    private let title: String
+    private let isPublic: Int
+    private let isFriend: Int
+    private let isFamily: Int
+    private var isInitialized: Bool = false
+    private var delegate: ImageDownloadDelegate? = nil
     
     init(id: String,
          owner: String,
@@ -67,14 +67,38 @@ class FlickrImage: ImageDownloadDelegate {
         }
     }
     
+    var Farm: Int {
+        return self.farm
+    }
+    
+    var Id: String {
+        return self.id
+    }
+    
+    var Secret: String {
+        return self.secret
+    }
+    
+    var Owner: String {
+        return self.owner
+    }
+    
+    var Server: String {
+        return self.server
+    }
+    
+    var Title: String {
+        return self.title
+    }
+    
     func download(delegate: ImageDownloadDelegate) {
         if image == nil {
             self.delegate = delegate
-            self.image = ImageStash.sharedInstance.getImageDownloadIfNotExistLocally(flickrImage: self, delegate: self)?.image
+            self.image = ImagesStash.sharedInstance.getImageDownloadIfNotExistLocally(flickrImage: self, delegate: self)?.image
         }
     }
     
-    func imageDownloaded(flickrImage: FlickrImage) {
+    internal func imageDownloaded(flickrImage: FlickrImage) {
         delegate?.imageDownloaded(flickrImage: flickrImage)
     }
 }

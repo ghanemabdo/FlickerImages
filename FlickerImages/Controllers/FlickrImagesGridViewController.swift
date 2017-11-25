@@ -35,6 +35,12 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
         searchController.searchBar.becomeFirstResponder()
         
         self.navigationItem.titleView = searchController.searchBar
+        
+        let bgImage = UIImageView();
+        bgImage.image = UIImage(named: "Uber-logo-logotype.png");
+        bgImage.contentMode = .scaleToFill
+        
+        self.collectionView?.backgroundView = bgImage
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,7 +54,13 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImagesIndex.sharedInstance.TotalPhotos
+        let totalImages = ImagesIndex.sharedInstance.TotalPhotos
+        
+        if ImagesIndex.sharedInstance.count < totalImages {
+            return ImagesIndex.sharedInstance.count
+        }
+        
+        return totalImages 
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -59,6 +71,13 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
         let index = getImageAtIndex(indexPath: indexPath)
         if let flickrImage = ImagesIndex.sharedInstance.getImageAtIndex(index: index, delegate: cell) {
             cell.setImage(flickrImage: flickrImage)
+        } else {    //When a cell is reused for a new image while the image 
+                    //download delegate of a previous image still not loaded, store the last image key
+            cell.LastImageKey = ImagesIndex.sharedInstance.getImageKeyAtIndex(index: index)
+        }
+        
+        if index >= Int(0.9 * Double(ImagesIndex.sharedInstance.count)) {
+            ImagesIndex.sharedInstance.downloadNextPage()
         }
         
         return cell
@@ -104,6 +123,7 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
             self.searchingActivityIndicator?.startAnimating()
             ImagesIndex.sharedInstance.searchForKey(searchKey: searchString, delegate: self)
             self.collectionView?.reloadData()
+            self.collectionView?.backgroundView?.alpha = 0.5
         }
     }
     

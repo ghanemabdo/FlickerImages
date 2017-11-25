@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
-class ImageStash: ImageDownloadDelegate {
+class ImagesStash: ImageDownloadDelegate {
     
-    let maxImagesAllowedInMemory = 200
-    static let sharedInstance = ImageStash()
-    var imagesDict = Dictionary<ImageKey, FlickrImage>()
-    var delegatesDict = Dictionary<ImageKey, ImageDownloadDelegate>()
-    var imagesQueue = Queue<ImageKey>()
+    private let maxImagesAllowedInMemory = 200
+    static let sharedInstance = ImagesStash()
+    private var imagesDict = Dictionary<ImageKey, FlickrImage>()
+    private var delegatesDict = Dictionary<ImageKey, ImageDownloadDelegate>()
+    private var imagesQueue = [ImageKey]()
+    
+    var count: Int {
+        return imagesQueue.count
+    }
     
     init() {
         createImagesDirectoryOnDisk()
@@ -25,6 +29,12 @@ class ImageStash: ImageDownloadDelegate {
         imagesDict.removeAll()
         delegatesDict.removeAll()
         imagesQueue.removeAll()
+    }
+    
+    func ignoreDelegateForImage(flickrImage: FlickrImage?) {
+        if let imageKey = flickrImage?.imageKey {
+            delegatesDict.removeValue(forKey: imageKey)
+        }
     }
     
     func removeAllAndSaveToDisk() {
@@ -38,7 +48,7 @@ class ImageStash: ImageDownloadDelegate {
         }
     }
     
-    func downloadImage(flickrImage: FlickrImage, delegate: ImageDownloadDelegate) {
+    private func downloadImage(flickrImage: FlickrImage, delegate: ImageDownloadDelegate) {
         if let key = flickrImage.imageKey {
             let imgOp = ImageNetworkOperation(flickrImage: flickrImage, delegate: self)
             delegatesDict[key] = delegate
@@ -47,13 +57,18 @@ class ImageStash: ImageDownloadDelegate {
     }
     
     func getImage(flickrImage: FlickrImage) -> FlickrImage? {
-        if let key = flickrImage.imageKey {
-            return imagesDict[key]
-        } else if let img = readImageFromDisk(flickrImage: flickrImage){
-            return img
-        } 
         
-        return nil
+        var image: FlickrImage? = nil
+        
+        if let key = flickrImage.imageKey {
+            if let img = imagesDict[key] {
+                image = img
+            } else if let img = readImageFromDisk(flickrImage: flickrImage){
+                image = img
+            }
+        }
+        
+        return image
     }
     
     func getImageDownloadIfNotExistLocally(flickrImage: FlickrImage, delegate: ImageDownloadDelegate) -> FlickrImage? {
@@ -66,16 +81,16 @@ class ImageStash: ImageDownloadDelegate {
         return nil
     }
     
-    func imageDownloaded(flickrImage: FlickrImage) {
+    internal func imageDownloaded(flickrImage: FlickrImage) {
         if let key = flickrImage.imageKey {
             imagesDict[key] = flickrImage
             delegatesDict[key]?.imageDownloaded(flickrImage: flickrImage)
-            imagesQueue.enqueue(key)
+            imagesQueue.insert(key, at: 0)
             
             if imagesDict.count > maxImagesAllowedInMemory {
                 DispatchQueue.global(qos: .userInitiated).async {
                     for _ in 1...10 {
-                        if let lastImgKey = self.imagesQueue.dequeue() {
+                        if let lastImgKey = self.imagesQueue.popLast() {
                             if let imgToSpill = self.imagesDict[lastImgKey] {
                                 self.spillImageToDisk(flickrImage: imgToSpill)
                             }
@@ -86,34 +101,38 @@ class ImageStash: ImageDownloadDelegate {
         }
     }
     
-    func spillImageToDisk(flickrImage: FlickrImage) {
-        if let img_key = flickrImage.imageKey, let img = flickrImage.image {
-            if let data = UIImageJPEGRepresentation(img, 0.9) {
-                let filename = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
-                try? data.write(to: filename)
-                imagesDict.removeValue(forKey: img_key)
+    private func spillImageToDisk(flickrImage: FlickrImage) {
+        if Configurations.diskCachEnabled {
+            if let img_key = flickrImage.imageKey, let img = flickrImage.Image {
+                if let data = UIImageJPEGRepresentation(img, 0.9) {
+                    let filename = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
+                    try? data.write(to: filename)
+                    imagesDict.removeValue(forKey: img_key)
+                }
             }
         }
     }
     
-    func readImageFromDisk(flickrImage: FlickrImage) -> FlickrImage? {
+    private func readImageFromDisk(flickrImage: FlickrImage) -> FlickrImage? {
         //TODO: this mehtod should be implemented async with Dispatch Queue and the loaded image
         // delivered to a delegate for displaying
-        if let img_key = flickrImage.imageKey {
-            let imgURL = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
-            do {
-                let imageData = try Data(contentsOf: imgURL)
-                flickrImage.Image = UIImage(data: imageData)
-                return flickrImage
-            } catch {
-                print("Error loading image : \(error)")
+        if Configurations.diskCachEnabled {
+            if let img_key = flickrImage.imageKey {
+                let imgURL = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("\(img_key).jpg")
+                do {
+                    let imageData = try Data(contentsOf: imgURL)
+                    flickrImage.Image = UIImage(data: imageData)
+                    return flickrImage
+                } catch {
+                    
+                }
             }
         }
         
         return nil
     }
     
-    func createImagesDirectoryOnDisk() {
+    private func createImagesDirectoryOnDisk() {
         let newDir = Utils.sharedInstance.getDocumentsDirectory().appendingPathComponent("images")
         var isDir : ObjCBool = true
         do {
@@ -124,8 +143,8 @@ class ImageStash: ImageDownloadDelegate {
                 try fileManager.createDirectory(atPath: newDir.path, withIntermediateDirectories: true, attributes: nil)
             }
             
-        } catch let error as NSError {
-            NSLog("Unable to create directory \(error.debugDescription)")
+        } catch {
+            
         } 
     }
 }

@@ -10,8 +10,8 @@ import Foundation
 
 class NetworkOperation {
     
-    let delegate: NetworkOperationDelegate
-    let request: URLRequest?
+    private let delegate: NetworkOperationDelegate
+    private let request: URLRequest?
     
     init (url: String, delegate: NetworkOperationDelegate, cachePolicy: URLRequest.CachePolicy, timeout: Int) {
         self.delegate = delegate
@@ -28,7 +28,7 @@ class NetworkOperation {
                 if data != nil {
                     self.delegate.dataReady(data: data!)
                 } else if error != nil {
-                    print(error.debugDescription)
+                    
                 }
             })
             

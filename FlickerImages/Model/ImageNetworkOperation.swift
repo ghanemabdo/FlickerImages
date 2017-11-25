@@ -11,10 +11,10 @@ import UIKit
 
 class ImageNetworkOperation: NetworkOperationDelegate {
     
-    let defaultNetworkConnectionTimeout = 30
-    var networkOperation: NetworkOperation? = nil
-    var flickrImage: FlickrImage? = nil
-    var imageDownloadDelegate: ImageDownloadDelegate? = nil
+    private let defaultNetworkConnectionTimeout = 30
+    private var networkOperation: NetworkOperation? = nil
+    private var flickrImage: FlickrImage? = nil
+    private var imageDownloadDelegate: ImageDownloadDelegate? = nil
     
     init(flickrImage: FlickrImage, delegate: ImageDownloadDelegate) {
         self.flickrImage = flickrImage
@@ -23,24 +23,24 @@ class ImageNetworkOperation: NetworkOperationDelegate {
         self.imageDownloadDelegate = delegate
     }
     
-    func buildURL(flickrImage: FlickrImage) -> String {
-        
-        let farm = flickrImage.farm
-        let server = flickrImage.server
-        let id = flickrImage.id
-        let secret = flickrImage.secret 
-        
-        return String("http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg")
-    }
-    
     func start() {
         self.networkOperation?.start()
     }
     
-    func dataReady(data: Data) {
+    private func buildURL(flickrImage: FlickrImage) -> String {
+        
+        let farm = flickrImage.Farm
+        let server = flickrImage.Server
+        let id = flickrImage.Id
+        let secret = flickrImage.Secret 
+        
+        return String("http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg")
+    }
+    
+    internal func dataReady(data: Data) {
         if data.count > 0 {
             if let image = UIImage(data: data) {
-                self.flickrImage?.image = image
+                self.flickrImage?.Image = image
                 imageDownloadDelegate?.imageDownloaded(flickrImage: self.flickrImage!)
             }
         }
