@@ -11,5 +11,5 @@ import UIKit
 
 protocol ImageDownloadDelegate {
     
-    func imageDownloaded(flickrImage: FlickrImage)
+    func imageDownloaded(flickrImage: FlickrImage?)
 }

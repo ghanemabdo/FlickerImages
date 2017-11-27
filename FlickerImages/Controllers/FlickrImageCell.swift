@@ -46,10 +46,10 @@ class FlickrImageCell: UICollectionViewCell, ImageDownloadDelegate {
     }
     
     // MARK: -- ImageDownloadDelegate methods --
-    internal func imageDownloaded(flickrImage: FlickrImage) {
+    internal func imageDownloaded(flickrImage: FlickrImage?) {
         DispatchQueue.main.async {
-            if flickrImage.imageKey == self.lastImageKey {
-                self.setImage(flickrImage: flickrImage)
+            if flickrImage?.imageKey == self.lastImageKey {
+                self.setImage(flickrImage: flickrImage!)
             }
         }
     }
