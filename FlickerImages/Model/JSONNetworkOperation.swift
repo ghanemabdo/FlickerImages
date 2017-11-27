@@ -10,7 +10,7 @@ import Foundation
 
 class JSONNetworkOperation: NetworkOperationDelegate {
     
-    private let api_key = "758363a8f3935bdd86eca9f52c0ae233"
+    private let api_key = "758363a8f3935bdd86eca9f52c0ae233"    //Temporary test key. Cleaner way is to retrieve it from an online service or store it in a resource text file that's not part of the github repo 
     private let defaultNetworkConnectionTimeout = 10
     private var networkOperation: NetworkOperation? = nil
     private var dictionary: Dictionary<String,Any>? = nil
