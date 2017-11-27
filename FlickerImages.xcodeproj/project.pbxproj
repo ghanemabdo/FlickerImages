@@ -30,6 +30,7 @@
 		F26EB4EF1FC5A9C60083480E /* ImagesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */; };
 		F26EB4F11FC6341F0083480E /* FlickrImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4F01FC6341F0083480E /* FlickrImageCell.swift */; };
 		F26EB4F31FC63AFD0083480E /* ImageIndexDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EB4F21FC63AFD0083480E /* ImageIndexDelegate.swift */; };
+		F2D28CE11FCC5B4600E1259F /* IndexNetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D28CE01FCC5B4600E1259F /* IndexNetworkOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		F26EB4EE1FC5A9C60083480E /* ImagesIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesIndex.swift; sourceTree = "<group>"; };
 		F26EB4F01FC6341F0083480E /* FlickrImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImageCell.swift; sourceTree = "<group>"; };
 		F26EB4F21FC63AFD0083480E /* ImageIndexDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageIndexDelegate.swift; sourceTree = "<group>"; };
+		F2D28CE01FCC5B4600E1259F /* IndexNetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexNetworkOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				F26EB4DC1FC4202E0083480E /* NetworkDelegates */,
 				F26EB4D61FC40BD30083480E /* NetworkOperation.swift */,
 				F26EB4DA1FC41AD70083480E /* ImageNetworkOperation.swift */,
+				F2D28CE01FCC5B4600E1259F /* IndexNetworkOperation.swift */,
 				F26EB4E31FC427940083480E /* JSONNetworkOperation.swift */,
 				F26EB4E51FC43CE50083480E /* FlickrImage.swift */,
 				F26EB4E71FC56F570083480E /* ImagesStash.swift */,
@@ -358,6 +361,7 @@
 				F26EB4F31FC63AFD0083480E /* ImageIndexDelegate.swift in Sources */,
 				F26EB4DE1FC4204E0083480E /* ImageDownloadDelegate.swift in Sources */,
 				F26EB4D71FC40BD30083480E /* NetworkOperation.swift in Sources */,
+				F2D28CE11FCC5B4600E1259F /* IndexNetworkOperation.swift in Sources */,
 				F265678B1FC8656C00D1218E /* Configurations.swift in Sources */,
 				F26EB4EA1FC579E00083480E /* Utils.swift in Sources */,
 				F26EB4A71FC1C95B0083480E /* AppDelegate.swift in Sources */,

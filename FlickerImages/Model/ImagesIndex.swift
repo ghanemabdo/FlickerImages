@@ -91,7 +91,7 @@ class ImagesIndex: JSONDownloadDelegate {
     }
     
     func downloadPage(page: Int) {
-        let jsonOp = JSONNetworkOperation(searchKey: self.searchKey, page: page, delegate: self)
+        let jsonOp = IndexNetworkOperation(searchKey: self.searchKey, page: page, delegate: self)
         jsonOp.start()
     }
     
