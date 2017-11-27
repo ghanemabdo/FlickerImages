@@ -25,7 +25,6 @@ class JSONNetworkOperation: NetworkOperationDelegate {
     
     func start() {
         self.networkOperation?.start(priority: 1.0)
-        
     }
     
     private func buildURL(searchKey: SearchKey, page: Int?) -> String? {
