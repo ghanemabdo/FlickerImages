@@ -10,6 +10,7 @@ import Foundation
 
 class JSONNetworkOperation: NetworkOperationDelegate {
     
+    private let api_key = "758363a8f3935bdd86eca9f52c0ae233"
     private let defaultNetworkConnectionTimeout = 10
     private var networkOperation: NetworkOperation? = nil
     private var dictionary: Dictionary<String,Any>? = nil
@@ -28,7 +29,7 @@ class JSONNetworkOperation: NetworkOperationDelegate {
     
     private func buildURL(searchKey: SearchKey, page: Int?) -> String? {
         if let encodedSearchKey = searchKey.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-            var url = String("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=758363a8f3935bdd86eca9f52c0ae233&format=json&nojsoncallback=1&safe_search=1&text=\(encodedSearchKey)")
+            var url = String("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(api_key)&format=json&nojsoncallback=1&safe_search=1&text=\(encodedSearchKey)")
             
             if let pg = page {
                 url += ((pg > 0) ? "&page=\(pg)" : "&page=1")
