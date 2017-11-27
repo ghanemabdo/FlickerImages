@@ -10,5 +10,5 @@ import Foundation
 
 protocol NetworkOperationDelegate {
     
-    func dataReady(data: Data)
+    func dataReady(data: Data?)
 }

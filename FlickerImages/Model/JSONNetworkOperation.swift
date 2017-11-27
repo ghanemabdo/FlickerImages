@@ -23,7 +23,7 @@ class JSONNetworkOperation: NetworkOperationDelegate {
     }
     
     func start() {
-        self.networkOperation?.start()
+        self.networkOperation?.start(priority: 1.0)
     }
     
     private func buildURL(searchKey: SearchKey, page: Int?) -> String? {
@@ -40,15 +40,15 @@ class JSONNetworkOperation: NetworkOperationDelegate {
         return nil
     }
     
-    internal func dataReady(data: Data) {
-        if data.count > 0 {
+    internal func dataReady(data: Data?) {
+        if data != nil && data!.count > 0 {
             do {
-                if let dict = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any] {
+                if let dict = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String:Any] {
                     jsonDownloadDelegate?.JSONDictionaryDownloaded(jsonDict: dict)
                     return
                 }
             } catch {
-                
+                //TODO: handle image index download failure
             }
         }
         

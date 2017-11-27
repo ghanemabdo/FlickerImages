@@ -37,13 +37,16 @@ class ImageNetworkOperation: NetworkOperationDelegate {
         return String("http://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg")
     }
     
-    internal func dataReady(data: Data) {
-        if data.count > 0 {
-            if let image = UIImage(data: data) {
+    internal func dataReady(data: Data?) {
+        if data != nil && data!.count > 0 {
+            if let image = UIImage(data: data!) {
                 self.flickrImage?.Image = image
-                imageDownloadDelegate?.imageDownloaded(flickrImage: self.flickrImage!)
             }
+        } else {
+            //TODO: handle image download failure
         }
+        
+        imageDownloadDelegate?.imageDownloaded(flickrImage: self.flickrImage)
     }
     
 }

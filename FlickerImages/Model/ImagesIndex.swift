@@ -43,6 +43,12 @@ class ImagesIndex: JSONDownloadDelegate {
         return self.perpage
     }
     
+    var nextPageLoadThreshold: Int {
+        let numPages = (count - 1) / self.perpage
+        let threshold = Int(0.8 * Double(self.perpage)) + numPages * self.perpage 
+        return threshold
+    }
+    
     func removeAll() {
         self.imagesList.removeAll()
         self.imagesDict.removeAll()
@@ -66,6 +72,7 @@ class ImagesIndex: JSONDownloadDelegate {
             return
         }
         
+        self.isPageDownloadInProgress = false
         self.searchDelegate = delegate
         imagesDict.removeAll()
         imagesList.removeAll()

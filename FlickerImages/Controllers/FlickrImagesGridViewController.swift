@@ -9,9 +9,7 @@
 import UIKit
 
 class FlickrImagesGridViewController: UICollectionViewController, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, UICollectionViewDelegateFlowLayout, ImageIndexDelegate {
-    
-    @IBOutlet var searchingActivityIndicator: UIActivityIndicatorView? = nil
-    
+        
     let cellsPerRow = 3
     let margins = UIEdgeInsets(top: 30.0, left: 15.0, bottom: 30.0, right: 15.0)
     let cellReuseIden = "flickrImageCell"
@@ -41,11 +39,43 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
         bgImage.contentMode = .scaleToFill
         
         self.collectionView?.backgroundView = bgImage
+        self.collectionView?.backgroundView?.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func displayAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action) in
+            self.searchController.searchBar.text = ""
+            self.searchController.searchBar.becomeFirstResponder()
+        }))
+        
+        searchController.present(alert, animated: true, completion: nil)
+    }
+    
+    private func checkNetworkConnectivity() -> Bool {
+        if Utils.currentReachabilityStatus == .notReachable {
+            displayAlert(title: "No Internet Connection", message: "Check your internet connection and try again")
+            return false
+        }
+        
+        return true
+    }
+    
+    private func showLoading() {
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.collectionView?.backgroundView?.isHidden = false
+        }, completion: nil) 
+    }
+    
+    private func hideLoading() {
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.collectionView?.backgroundView?.isHidden = true
+        }, completion: nil) 
     }
 
     // MARK: -- UICollectionViewDataSource methods --
@@ -76,7 +106,7 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
             cell.LastImageKey = ImagesIndex.sharedInstance.getImageKeyAtIndex(index: index)
         }
         
-        if index >= Int(0.9 * Double(ImagesIndex.sharedInstance.count)) {
+        if index >= ImagesIndex.sharedInstance.nextPageLoadThreshold {
             ImagesIndex.sharedInstance.downloadNextPage()
         }
         
@@ -106,7 +136,7 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
     
     // MARK: -- SearchBar delegates methods --
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = self.lastSearchKeywork
+        self.searchController.searchBar.text = self.lastSearchKeywork
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -117,22 +147,25 @@ class FlickrImagesGridViewController: UICollectionViewController, UISearchContro
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         
-        if let searchString = searchController.searchBar.text {
-            self.lastSearchKeywork = searchString
-            self.searchingActivityIndicator?.isHidden = false
-            self.searchingActivityIndicator?.startAnimating()
-            ImagesIndex.sharedInstance.searchForKey(searchKey: searchString, delegate: self)
-            self.collectionView?.reloadData()
-            self.collectionView?.backgroundView?.alpha = 0.5
+        if checkNetworkConnectivity() {
+            if let searchString = searchController.searchBar.text {
+                self.lastSearchKeywork = searchString
+                ImagesIndex.sharedInstance.searchForKey(searchKey: searchString, delegate: self)
+                self.collectionView?.reloadData()
+                self.showLoading()
+            }
         }
     }
     
-    // MARK: -- JSONDownloadDelegate methods --
+    // MARK: -- ImageIndexDelegate methods --
     func imageIndexDownloaded() {
-        DispatchQueue.main.async {
-            self.searchingActivityIndicator?.isHidden = true
-            self.searchingActivityIndicator?.stopAnimating()
-            self.collectionView?.reloadData()
+        Utils.runOnMainThread {
+            if ImagesIndex.sharedInstance.count > 0 {
+                self.hideLoading()
+                self.collectionView?.reloadData()
+            } else {
+                self.displayAlert(title: "No Results Found", message: "Your search query did not return any results. Try another query")
+            }
         }
     }
 }
