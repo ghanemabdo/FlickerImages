@@ -28,7 +28,7 @@ class JSONNetworkOperation: NetworkOperationDelegate {
     
     private func buildURL(searchKey: SearchKey, page: Int?) -> String? {
         if let encodedSearchKey = searchKey.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-            var url = String("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=3e7cc266ae2b0e0d78e279ce8e361736&format=json&nojsoncallback=1&safe_search=1&text=\(encodedSearchKey)")
+            var url = String("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=758363a8f3935bdd86eca9f52c0ae233&format=json&nojsoncallback=1&safe_search=1&text=\(encodedSearchKey)")
             
             if let pg = page {
                 url += ((pg > 0) ? "&page=\(pg)" : "&page=1")
